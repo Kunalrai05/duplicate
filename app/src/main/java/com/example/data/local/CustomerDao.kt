@@ -16,6 +16,9 @@ interface CustomerDao {
     @Query("SELECT * FROM customers ORDER BY locality ASC, nameHindi ASC")
     fun getAllCustomers(): Flow<List<Customer>>
 
+    @Query("SELECT * FROM customers ORDER BY locality ASC, nameHindi ASC")
+    suspend fun getAllCustomersDirect(): List<Customer>
+
     @Query("SELECT * FROM customers WHERE id = :id LIMIT 1")
     fun getCustomerById(id: String): Flow<Customer?>
 

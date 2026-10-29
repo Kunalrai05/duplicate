@@ -110,4 +110,70 @@ class ExampleUnitTest {
         val proMsg = settings.formatMessage(com.example.data.model.MessageTone.PROFESSIONAL, "राजेश", "450.00", "3")
         org.junit.Assert.assertTrue(proMsg.contains("खाता विवरण अनुसार"))
     }
+
+    @Test
+    fun v11_fileNamingConvention_matchesSpecification() {
+        val fileName = com.example.data.export.DataImportExportManager.generateFileName("Customers", "csv", true)
+        org.junit.Assert.assertTrue("Filename must start with RaiWater_", fileName.startsWith("RaiWater_Customers_"))
+        org.junit.Assert.assertTrue("Filename must end with .csv", fileName.endsWith(".csv"))
+        // Check timestamp pattern YYYYMMDD_HHmmss
+        val pattern = Regex("""^RaiWater_Customers_\d{8}_\d{6}\.csv$""")
+        org.junit.Assert.assertTrue("Filename must match regex: $fileName", pattern.matches(fileName))
+    }
+
+    @Test
+    fun v11_autoDetection_identifiesRegistersAccurately() {
+        val mgr = com.example.data.export.DataImportExportManager
+
+        // 1. Deliveries Header
+        val delHeader = listOf("Transaction ID", "Date", "Time", "Customer ID", "Customer Name", "Cans Given", "Cans Received", "Notation", "Route", "Driver", "Notes", "Sync Status")
+        assertEquals(mgr.RegisterType.DELIVERIES, mgr.autoDetectRegisterType(delHeader))
+
+        // 2. Payments Header
+        val payHeader = listOf("Payment ID", "Date", "Customer ID", "Customer Name", "Amount (INR)", "Payment Mode", "Reference / UTR / Note", "Collector Name")
+        assertEquals(mgr.RegisterType.PAYMENTS, mgr.autoDetectRegisterType(payHeader))
+
+        // 3. Bills Header
+        val billHeader = listOf("Bill No", "Billing Date", "Customer ID", "Customer Name", "Phone", "Period Start", "Period End", "Delivered Cans", "Returned Cans", "Rate Per Can", "Water Charges", "Total Bill (INR)", "Paid Amount (INR)", "Balance Due (INR)", "Payment Status")
+        assertEquals(mgr.RegisterType.BILLS, mgr.autoDetectRegisterType(billHeader))
+
+        // 4. Monthly Ledger Header
+        val ledgerHeader = listOf("S.No", "Customer ID", "Customer Name", "Phone", "Address", "Rate (INR)", "Day 1", "Day 31", "Total Delivered Cans", "Total Returned Cans", "Water Charges (INR)", "Extra Charges (INR)", "Total Bill (INR)", "Paid Amount (INR)", "Net Balance Due (INR)")
+        assertEquals(mgr.RegisterType.MONTHLY_LEDGER, mgr.autoDetectRegisterType(ledgerHeader))
+
+        // 5. Customers Header
+        val custHeader = listOf("Customer ID", "Hindi Name", "English Name", "Phone", "Address", "Locality / Route", "Rate Per Can", "Can Balance", "Due Amount (INR)", "Status")
+        assertEquals(mgr.RegisterType.CUSTOMERS, mgr.autoDetectRegisterType(custHeader))
+    }
+
+    @Test
+    fun v11_pureXlsxOpenXmlGeneration_isValidZipWorkbook() {
+        val tempFile = java.io.File.createTempFile("TestExport", ".xlsx")
+        tempFile.deleteOnExit()
+
+        val headers = listOf("Customer ID", "Name Hindi", "Rate")
+        val rows = listOf(
+            listOf("CUST-101", "अग्रवाल स्वीट्स पिपरिया", "30.0"),
+            listOf("CUST-102", "होटल राजहंस", "28.0")
+        )
+
+        com.example.data.export.DataImportExportManager.writeXlsx(tempFile, "TestSheet", headers, rows)
+        org.junit.Assert.assertTrue("XLSX file must exist and be non-empty", tempFile.exists() && tempFile.length() > 0)
+
+        // Verify OpenXML package structure
+        val zis = java.util.zip.ZipInputStream(java.io.FileInputStream(tempFile))
+        val entryNames = mutableListOf<String>()
+        var entry = zis.nextEntry
+        while (entry != null) {
+            entryNames.add(entry.name)
+            zis.closeEntry()
+            entry = zis.nextEntry
+        }
+        zis.close()
+
+        org.junit.Assert.assertTrue("Must contain [Content_Types].xml", entryNames.contains("[Content_Types].xml"))
+        org.junit.Assert.assertTrue("Must contain xl/workbook.xml", entryNames.contains("xl/workbook.xml"))
+        org.junit.Assert.assertTrue("Must contain xl/worksheets/sheet1.xml", entryNames.contains("xl/worksheets/sheet1.xml"))
+        org.junit.Assert.assertTrue("Must contain xl/sharedStrings.xml", entryNames.contains("xl/sharedStrings.xml"))
+    }
 }

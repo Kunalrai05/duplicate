@@ -10,8 +10,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DeliveryEntryDao {
-    @Query("SELECT * FROM delivery_entries ORDER BY timestamp DESC")
+    @Query("SELECT * FROM deliveries ORDER BY createdAt DESC")
     fun getAllDeliveries(): Flow<List<DeliveryEntry>>
+
+    @Query("SELECT * FROM deliveries ORDER BY createdAt DESC")
+    suspend fun getAllDeliveriesDirect(): List<DeliveryEntry>
 
     @Query("SELECT * FROM delivery_entries WHERE date = :date ORDER BY timestamp DESC")
     fun getDeliveriesForDate(date: String): Flow<List<DeliveryEntry>>

@@ -10,6 +10,9 @@ interface CustomerDao {
     @Query("SELECT * FROM customers ORDER BY locality ASC, nameHindi ASC")
     fun getAllCustomers(): Flow<List<Customer>>
 
+    @Query("SELECT * FROM customers ORDER BY locality ASC, nameHindi ASC")
+    suspend fun getAllCustomersDirect(): List<Customer>
+
     @Query("SELECT * FROM customers WHERE isActive = 1 ORDER BY locality ASC, nameHindi ASC")
     fun getAllActiveCustomers(): Flow<List<Customer>>
 
@@ -54,6 +57,9 @@ interface CustomerDao {
 interface DeliveryEntryDao {
     @Query("SELECT * FROM deliveries ORDER BY createdAt DESC")
     fun getAllDeliveries(): Flow<List<DeliveryEntry>>
+
+    @Query("SELECT * FROM deliveries ORDER BY createdAt DESC")
+    suspend fun getAllDeliveriesDirect(): List<DeliveryEntry>
 
     @Query("SELECT * FROM deliveries WHERE date = :date ORDER BY createdAt DESC")
     fun getDeliveriesByDate(date: String): Flow<List<DeliveryEntry>>
@@ -115,6 +121,9 @@ interface PaymentRecordDao {
     @Query("SELECT * FROM payments ORDER BY date DESC, createdAt DESC")
     fun getAllPayments(): Flow<List<PaymentRecord>>
 
+    @Query("SELECT * FROM payments ORDER BY date DESC, createdAt DESC")
+    suspend fun getAllPaymentsDirect(): List<PaymentRecord>
+
     @Query("SELECT * FROM payments WHERE customerId = :customerId ORDER BY date DESC")
     fun getPaymentsForCustomer(customerId: String): Flow<List<PaymentRecord>>
 
@@ -150,6 +159,9 @@ interface PaymentRecordDao {
 interface BillRecordDao {
     @Query("SELECT * FROM bills ORDER BY createdAt DESC")
     fun getAllBills(): Flow<List<BillRecord>>
+
+    @Query("SELECT * FROM bills ORDER BY createdAt DESC")
+    suspend fun getAllBillsDirect(): List<BillRecord>
 
     @Query("SELECT * FROM bills WHERE customerId = :customerId ORDER BY createdAt DESC")
     fun getBillsForCustomer(customerId: String): Flow<List<BillRecord>>
@@ -187,6 +199,9 @@ interface ProductDao {
     @Query("SELECT * FROM products ORDER BY nameHindi ASC")
     fun getAllProducts(): Flow<List<ProductItem>>
 
+    @Query("SELECT * FROM products ORDER BY nameHindi ASC")
+    suspend fun getAllProductsDirect(): List<ProductItem>
+
     @Query("SELECT * FROM products WHERE isActive = 1 ORDER BY nameHindi ASC")
     fun getActiveProducts(): Flow<List<ProductItem>>
 
@@ -216,6 +231,9 @@ interface ProductDao {
 interface NotationSymbolDao {
     @Query("SELECT * FROM notation_symbols ORDER BY symbol ASC")
     fun getAllSymbols(): Flow<List<NotationSymbol>>
+
+    @Query("SELECT * FROM notation_symbols ORDER BY symbol ASC")
+    suspend fun getAllSymbolsDirect(): List<NotationSymbol>
 
     @Query("SELECT * FROM notation_symbols WHERE symbol = :symbol LIMIT 1")
     suspend fun getSymbolBySymbol(symbol: String): NotationSymbol?

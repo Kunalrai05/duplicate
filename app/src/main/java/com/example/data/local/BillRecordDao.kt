@@ -14,6 +14,9 @@ interface BillRecordDao {
     @Query("SELECT * FROM bills ORDER BY createdAt DESC")
     fun getAllBills(): Flow<List<BillRecord>>
 
+    @Query("SELECT * FROM bills ORDER BY createdAt DESC")
+    suspend fun getAllBillsDirect(): List<BillRecord>
+
     @Query("SELECT * FROM bills WHERE customerId = :customerId ORDER BY createdAt DESC")
     fun getBillsForCustomer(customerId: String): Flow<List<BillRecord>>
 

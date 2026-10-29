@@ -9,8 +9,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PaymentRecordDao {
-    @Query("SELECT * FROM payments ORDER BY timestamp DESC")
+    @Query("SELECT * FROM payments ORDER BY date DESC, createdAt DESC")
     fun getAllPayments(): Flow<List<PaymentRecord>>
+
+    @Query("SELECT * FROM payments ORDER BY date DESC, createdAt DESC")
+    suspend fun getAllPaymentsDirect(): List<PaymentRecord>
 
     @Query("SELECT * FROM payments WHERE customerId = :customerId ORDER BY date DESC, timestamp DESC")
     fun getPaymentsForCustomer(customerId: String): Flow<List<PaymentRecord>>

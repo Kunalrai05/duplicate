@@ -202,6 +202,16 @@ fun MainAppContent(viewModel: MainViewModel) {
                     )
 
                     DrawerItem(
+                        icon = Icons.Default.FolderZip,
+                        label = if (isHindi) "📁 डेटा प्रबंधन (Data Center)" else "📁 Data Management (v1.1)",
+                        selected = activeScreen == ActiveScreen.DATA_CENTER,
+                        onClick = {
+                            viewModel.navigateTo(ActiveScreen.DATA_CENTER)
+                            coroutineScope.launch { drawerState.close() }
+                        }
+                    )
+
+                    DrawerItem(
                         icon = Icons.Default.HelpOutline,
                         label = if (isHindi) "📖 सिंक मार्गदर्शिका" else "📖 Sync & Network Guide",
                         selected = activeScreen == ActiveScreen.ABOUT_SYNC_GUIDE,
@@ -267,6 +277,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                 ActiveScreen.SYMBOL_DICTIONARY -> SymbolDictionaryScreen(viewModel = viewModel, modifier = mod)
                 ActiveScreen.BUSINESS_SUMMARY -> BusinessSummaryScreen(viewModel = viewModel, modifier = mod)
                 ActiveScreen.REGISTER_SCAN -> RegisterScanScreen(viewModel = viewModel, modifier = mod)
+                ActiveScreen.DATA_CENTER -> DataManagementScreen(viewModel = viewModel, modifier = mod)
             }
 
             // Dual Celebratory Success Dialog
