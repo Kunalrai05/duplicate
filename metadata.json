@@ -1,0 +1,6 @@
+{
+  "name": "Rai Chilled Water",
+  "description": "Offline-first mobile companion for drivers & business owners with local Wi-Fi ERP sync, rapid Hindi route delivery entries, register photo scan queue, customer ledgers, and 14.5x26cm WhatsApp bill generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

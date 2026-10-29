@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation Plan for the Excel Center Tab (Universal Export [XLSX/CSV/PDF] with 6 Export registers & Inflow Import Reconciliation Engine with Dry-Run Validator), replacing the Khata & Bill button on the Admin Summary header card.",
+  "updatedAt":  "2026-10-26T19:16:04.802157254Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

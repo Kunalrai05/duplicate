@@ -1,0 +1,1737 @@
+# MASTER PROMPT — RAI CHILLED WATER
+## Autonomous Windows Desktop ERP Development, Implementation, Testing & Delivery
+
+You are now my **Principal Software Architect, Senior Python/PySide6 Engineer, ERP Product Developer, Database Architect, UI/UX Designer, OCR Engineer, QA Automation Engineer, Windows Packaging Specialist, and Technical Project Lead**.
+
+Your mission is to independently develop, complete, test, debug, and deliver a professional Windows desktop ERP application named **Rai Chilled Water** for a chilled-water delivery business.
+
+You are not being asked to write a proposal, provide sample code, or explain how I could build it.
+
+**You are responsible for actually building the working application inside my project directory.**
+
+Continue working through implementation, testing, error correction, and final verification until the application is complete to the fullest extent possible within your available tools and execution environment.
+
+Do not stop after creating the initial interface. Do not stop after writing the first version of the code. Do not leave important buttons non-functional. Do not substitute a demonstration for a working business application.
+
+---
+
+# 1. PROJECT IDENTITY AND FIXED PATHS
+
+Application name: `Rai Chilled Water`
+
+Project directory:
+
+`D:\projects\Rai Chilled Water\`
+
+Existing logo:
+
+`D:\projects\Rai Chilled Water\RAI_Chilled_Water.png`
+
+Target platform: Windows 10 and Windows 11, 64-bit.
+
+Primary operating mode: Offline-first, single-computer business application.
+
+Primary language: English interface, with full support for Hindi customer names, handwritten Hindi records, Hindi text entry, and Unicode document storage.
+
+Currency: Indian Rupee (₹).
+
+Business location: Pipariya, Madhya Pradesh, India.
+
+Primary objective: Digitize handwritten delivery registers, maintain customer accounts, calculate monthly bills, track payments and reusable water cans, and preserve every important business record.
+
+## Mandatory startup procedure
+
+Before writing or modifying code:
+
+1. Inspect the existing project directory and understand its contents.
+2. Identify existing Python files, configuration, databases, assets, tests, and documentation.
+3. Inspect the supplied logo file to establish its actual dimensions, format, transparency, and appearance.
+4. Determine whether an existing implementation needs to be repaired or extended.
+5. Preserve useful existing code and business data.
+6. Identify the current runtime environment, available dependencies, Python version, and packaging tools.
+7. Create a backup before modifying existing databases or important project files.
+8. Establish a clear implementation checklist.
+9. Begin implementation immediately.
+
+Do not overwrite a working application simply because rebuilding it would be easier.
+
+Do not delete the existing logo, source documents, database, or other business files.
+
+If the supplied directory does not exist, create it. If the logo cannot be accessed, report the specific issue and continue implementing the remaining application with a temporary placeholder that can later be replaced.
+
+Never invent a successful inspection result.
+
+---
+
+# 2. AUTONOMOUS EXECUTION CONTRACT
+
+Operate as an autonomous software development agent.
+
+You must follow this cycle repeatedly:
+
+**Inspect → Plan → Implement → Run → Test → Diagnose → Fix → Retest → Integrate → Verify.**
+
+Continue until all mandatory features are implemented and all feasible acceptance tests pass.
+
+## You must not:
+
+- Stop after writing a development plan.
+- Stop after creating a basic GUI.
+- Stop after creating database tables.
+- Stop after generating code without executing it.
+- Leave placeholder screens as if they were complete features.
+- Use fake customer data in production reports.
+- Use hard-coded financial results instead of database calculations.
+- Display success messages when an operation has failed.
+- Hide exceptions that affect business data.
+- claim that printing, OCR, imports, backups, or restoration work without testing them.
+- ask me to perform work that you can perform directly through your available tools.
+- repeatedly ask for permission to complete ordinary development tasks.
+- abandon the application when you encounter an easily fixable error.
+- rewrite the entire project unnecessarily when a targeted fix is sufficient.
+
+## When a problem occurs
+
+1. Capture the actual error.
+2. Identify its root cause.
+3. Reproduce it where possible.
+4. Implement a minimal, robust fix.
+5. Run the relevant regression tests.
+6. Continue with the remaining work.
+
+If a feature depends on unavailable hardware, software, credentials, or an external service, implement and test everything possible without that dependency. Clearly identify what remains blocked.
+
+If you encounter an execution limit, resume from the documented implementation state rather than restarting from scratch.
+
+## Completion rule
+
+Do not declare the application complete until you have:
+
+- Implemented the core workflows.
+- Connected screens to real business logic.
+- Connected business logic to persistent storage.
+- Tested critical calculations.
+- Tested application startup.
+- Tested saving and reopening records.
+- Tested failure handling.
+- Tested backups and restoration.
+- Verified the logo and application branding.
+- Built a distributable Windows application if the available environment supports it.
+- Produced an honest final report identifying any remaining limitations.
+
+---
+
+# 3. TECHNOLOGY STACK
+
+Use a maintainable, Windows-compatible architecture.
+
+Preferred stack:
+
+- Python 3.11 or a compatible supported version.
+- PySide6 / Qt for the desktop GUI.
+- SQLite for the local database.
+- SQLAlchemy or a well-structured parameterized SQLite data-access layer.
+- Alembic or an equivalent explicit database migration mechanism where appropriate.
+- Pillow and OpenCV for image processing.
+- PyMuPDF and/or pdfplumber for PDF processing.
+- openpyxl for Excel workbooks.
+- ReportLab or another suitable PDF renderer for invoices and reports.
+- pytest for automated testing.
+- PyInstaller for Windows packaging.
+- Logging using Python's logging framework.
+- Qt worker threads or suitable background workers for long-running operations.
+
+Choose compatible dependency versions, pin them in a dependency file, and verify imports and runtime compatibility.
+
+Do not introduce unnecessary frameworks.
+
+Do not create a web application merely because web technologies are familiar. This is a Windows desktop ERP.
+
+## Architectural separation
+
+Separate the application into logical layers:
+
+1. Presentation/UI.
+2. Application services.
+3. Business rules and calculations.
+4. Database and repositories.
+5. Document and file storage.
+6. OCR and image processing.
+7. Import/export.
+8. Invoice generation and printing.
+9. Authentication and permissions.
+10. Logging, backups, and recovery.
+11. Automated tests.
+
+UI event handlers must not contain the entire billing or ledger calculation engine.
+
+Use explicit service functions and transactions.
+
+All financial and inventory calculations must be testable independently of the GUI.
+
+---
+
+# 4. APPLICATION DESIGN AND VISUAL IDENTITY
+
+Design Rai Chilled Water as a premium, polished business application.
+
+The interface should feel like professional commercial software rather than a student project.
+
+## Branding requirements
+
+Use the exact existing logo:
+
+`D:\projects\Rai Chilled Water\RAI_Chilled_Water.png`
+
+Use it appropriately in:
+
+- Main application header.
+- Login or startup screen, if implemented.
+- Dashboard branding.
+- About screen.
+- Invoice header where appropriate.
+- PDF reports.
+- Application icon or packaged resources, where supported.
+
+Preserve the original logo artwork. Do not regenerate or replace it with a different logo.
+
+Create resized copies for different interface contexts if necessary, without modifying the original source file.
+
+Never hard-code the absolute logo path as the only runtime source. Use a configurable asset resolver with sensible fallbacks, so the packaged application can locate its bundled logo and the development version can use the supplied path.
+
+## Visual direction
+
+Use a professional chilled-water business identity:
+
+- Deep navy or blue as the primary brand color.
+- White and light neutral backgrounds.
+- Restrained cyan or water-blue accents.
+- Subtle borders and shadows.
+- Clear typography.
+- Consistent spacing.
+- Carefully designed icons.
+- Attractive empty states.
+- Clear visual hierarchy.
+- High-quality tables and forms.
+
+Avoid excessive gradients, random colors, unnecessary animations, oversized decorative elements, and cluttered screens.
+
+Provide a light theme by default and an optional dark theme if it can be implemented consistently.
+
+## Main layout
+
+Build a responsive desktop layout containing:
+
+**Left sidebar**
+- Dashboard
+- Customers
+- Customer Ledgers
+- Daily Entries
+- Smart Sheet Import
+- Document Archive
+- Billing & Invoices
+- Payments & Receipts
+- Inventory
+- Drivers & Routes
+- Excel Center
+- Expenses & Accounts
+- Reports & Analytics
+- Notifications & Tasks
+- Settings & Data
+
+**Top toolbar**
+- Global search.
+- Current billing period.
+- Quick actions.
+- Notifications.
+- User/profile area.
+- Database and storage status.
+- Active data-directory shortcut.
+
+**Main workspace**
+- Module-specific content.
+- Consistent tables, filters, forms, and detail panels.
+- Contextual actions.
+- Loading, error, empty, and success states.
+
+Use a scalable layout with sensible minimum window dimensions, resizable panels, keyboard navigation, and persistent user preferences.
+
+The application must remain usable at ordinary laptop resolutions.
+
+---
+
+# 5. DATA DIRECTORY — NON-NEGOTIABLE REQUIREMENT
+
+All persistent business data must be stored in a clearly organized, writable directory.
+
+Preferred initial location:
+
+`D:\projects\Rai Chilled Water\Data\`
+
+Keep the data directory separate from source code and temporary processing files.
+
+If the application is packaged, support a configurable writable data directory. Do not assume that a Windows-protected installation directory is writable.
+
+## Required structure
+
+Create an organized directory structure similar to:
+
+Rai Chilled Water/
+- main.py or equivalent application entry point
+- src/
+- tests/
+- Resources/
+  - Images/
+  - Icons/
+  - Fonts/
+  - Templates/
+- Data/
+  - Database/
+  - Documents/
+    - OriginalScans/
+    - ProcessedScans/
+    - Attachments/
+  - Imports/
+    - CustomerImports/
+    - DeliveryImports/
+  - Exports/
+    - Customers/
+    - Ledgers/
+    - Reports/
+  - Invoices/
+    - Finalized/
+    - Reprints/
+  - Backups/
+  - Logs/
+  - Settings/
+  - Recovery/
+- requirements.txt or equivalent
+- README.md
+- CHANGELOG.md
+- build configuration
+- installer configuration
+
+The actual source layout may be more modular, but persistent business data must remain easy to locate and back up.
+
+## Storage rules
+
+1. Preserve original scans before OCR begins.
+2. Persist approved transactions in SQLite.
+3. Save finalized invoice snapshots.
+4. Save generated exports and reports when requested.
+5. Keep backup files in the designated backup location.
+6. Keep application logs persistent.
+7. Store user settings and templates persistently.
+8. Use temporary processing space only for genuinely temporary intermediate data.
+9. Clean up temporary files safely.
+10. Never silently redirect business data to another location.
+11. Never silently switch data directories if the configured location becomes unavailable.
+12. Verify write access before a critical operation.
+13. Handle disk-full and permission errors safely.
+14. Do not manually delete SQLite WAL or shared-memory files while the database is running.
+
+Provide a storage settings screen showing the active directory, available disk space, database status, archive health, and last verified backup.
+
+---
+
+# 6. DATABASE DESIGN AND DATA INTEGRITY
+
+Create a properly normalized database with migrations and constraints.
+
+Use permanent primary keys. Use foreign keys. Enforce uniqueness where appropriate. Use database transactions for multi-record operations.
+
+The database must support at least these logical entities:
+
+- Customers.
+- Customer contacts and addresses where needed.
+- Routes.
+- Drivers.
+- Rate history.
+- Opening balances.
+- Delivery transactions.
+- Delivery adjustments.
+- Import batches.
+- Import row results.
+- Source documents.
+- Document versions.
+- OCR processing results.
+- OCR verification and approval records.
+- Customer can ledger.
+- Customer financial ledger.
+- Invoices.
+- Invoice line items.
+- Invoice snapshots.
+- Invoice number series.
+- Payments.
+- Payment allocations.
+- Receipts.
+- Deposits and refunds.
+- Inventory locations.
+- Inventory movements.
+- Inventory adjustments.
+- Expenses.
+- Expense categories.
+- Users and roles.
+- Audit events.
+- Notifications and tasks.
+- Application settings.
+- Backup records.
+- Schema migration history.
+
+Use separate can and financial ledgers. They must never be conflated.
+
+Do not create unnecessary duplicate sources of truth.
+
+## Audit history
+
+For significant edits, preserve:
+
+- Record ID.
+- Previous values.
+- New values.
+- Timestamp.
+- User or operator.
+- Change reason where required.
+- Source transaction or document.
+- Related invoice or batch where applicable.
+
+Use append-only audit events for ordinary application operations.
+
+A correction should not silently erase its history.
+
+## Database integrity
+
+Implement and test:
+
+- Foreign-key enforcement.
+- Transaction rollback.
+- Unique identifiers.
+- Referential integrity.
+- Safe concurrent access within the supported single-PC architecture.
+- Database health checks.
+- Schema migrations.
+- Startup validation.
+- Recovery after interrupted writes.
+- Prevention of duplicate payments and payment allocations.
+- Prevention of duplicate final invoice numbers within the configured series.
+
+Use `Decimal` or integer paise for monetary calculations. Avoid binary floating-point arithmetic for financial amounts.
+
+---
+
+# 7. DASHBOARD
+
+Build a dashboard driven entirely by actual database data.
+
+Display:
+
+### Operational metrics
+- Active customers.
+- Inactive and archived customers.
+- Cans delivered today.
+- Cans received today.
+- Unverified delivery records.
+- Scanned sheets awaiting processing.
+- Draft invoices.
+- Finalized invoices this month.
+- Bills awaiting printing.
+
+### Financial metrics
+- Current-period invoiced amount.
+- Payments collected.
+- Outstanding receivables.
+- Overdue balances.
+- Recorded expenses.
+- Estimated operating margin where sufficient cost data exists.
+
+### Inventory metrics
+- Full cans at the plant.
+- Empty cans at the plant.
+- Cans with drivers.
+- Cans recorded with customers.
+- Damaged or missing cans.
+- Unreconciled stock movements.
+
+Include useful charts and recent activity where appropriate.
+
+Clicking a metric must open the relevant filtered records.
+
+If no records exist, show a genuine empty state rather than invented statistics.
+
+---
+
+# 8. CUSTOMER MANAGEMENT
+
+Every customer must receive a permanent customer ID.
+
+Support:
+
+- Hindi name.
+- English name.
+- Phone and alternate phone.
+- Address in Hindi and English.
+- Locality and landmark.
+- Route and assigned driver.
+- Start date.
+- Active, paused, closed, or archived status.
+- Customer-specific rates.
+- Effective dates for rates.
+- Payment terms.
+- Credit limit where applicable.
+- Opening financial balance.
+- Opening can balance.
+- Deposit balance.
+- Notes and attachments.
+- Creation and modification history.
+
+Provide:
+
+- Add.
+- View.
+- Edit.
+- Search.
+- Filter.
+- Sort.
+- Archive.
+- Reactivate.
+- Import.
+- Export.
+- Customer statement.
+- Ledger history.
+- Duplicate-candidate review.
+- Controlled customer merge.
+
+Do not permanently delete customers who have historical transactions.
+
+A merge must preserve historical records, source documents, invoice links, payments, and audit history.
+
+---
+
+# 9. DAILY DELIVERY ENTRIES
+
+Create a complete daily transaction-management screen.
+
+Every delivery record must contain:
+
+- Permanent transaction ID.
+- Customer ID.
+- Date.
+- Optional time.
+- Cans given.
+- Cans received.
+- Driver and route if applicable.
+- Entry source.
+- Source document/page/cell if applicable.
+- Verification status.
+- Notes.
+- Creation and modification timestamps.
+- Invoice linkage when billed.
+
+Support manual entry, OCR import, Excel import, and approved corrections.
+
+Allow filtering by date, customer, route, driver, source, verification status, and billing status.
+
+## Validation
+
+Check:
+
+- Missing customer.
+- Invalid date.
+- Invalid quantities.
+- Unsupported negative values.
+- Unknown customer ID.
+- Potential duplicates.
+- Unverified transactions.
+- Entries outside the selected billing period.
+- Changes affecting finalized invoices.
+
+Do not automatically delete duplicate candidates.
+
+Multiple legitimate deliveries to one customer on the same day must remain possible.
+
+Distinguish blank, unknown, and zero quantities.
+
+---
+
+# 10. CUSTOMER LEDGERS
+
+Maintain two independent ledgers for each customer.
+
+## A. Physical can ledger
+
+Track:
+
+- Opening can balance.
+- Cans delivered.
+- Cans returned.
+- Approved adjustments.
+- Closing can balance.
+
+Use the configured convention:
+
+Closing cans = Opening cans + Cans given − Cans received.
+
+This formula assumes a positive balance represents cans recorded with the customer. Document that convention throughout the application.
+
+## B. Financial ledger
+
+Track:
+
+- Opening due.
+- Invoices.
+- Charges.
+- Payments.
+- Payment allocations.
+- Deposits.
+- Refunds.
+- Discounts.
+- Credit adjustments.
+- Closing due.
+
+General formula:
+
+Closing due = Opening due + Charges + Adjustments − Payments.
+
+Keep refundable deposits separate from sales revenue.
+
+## Correction behaviour
+
+An unbilled transaction can be corrected through a controlled edit.
+
+A correction affecting a finalized invoice must create an auditable adjustment or reissue workflow.
+
+Do not silently modify the historical amount of a finalized invoice.
+
+Provide customer statements, transaction histories, running balances, date filters, and Excel/PDF export.
+
+---
+
+# 11. SMART SHEET IMPORT — HINDI REGISTER OCR
+
+Implement an OCR-assisted register-digitization workflow.
+
+Inputs should include:
+
+- PDF.
+- Multi-page PDF.
+- JPG/JPEG.
+- PNG.
+- Scanned register images.
+- Mobile photographs.
+- Multiple documents in a batch.
+
+## Processing pipeline
+
+1. Select documents.
+2. Archive original files.
+3. Calculate a file hash.
+4. Detect duplicate source files.
+5. Process images using rotation, deskewing, cropping, and contrast enhancement.
+6. Detect tables or manually define table regions.
+7. Extract printed text, handwriting, dates, digits, and symbols using an appropriate recognition engine.
+8. Match customers against existing profiles.
+9. Apply confirmed notation rules.
+10. Display extracted records for review.
+11. Allow corrections.
+12. Validate quantities and dates.
+13. Approve the batch.
+14. Post approved transactions once.
+15. Retain the source-to-transaction relationship.
+
+## Important OCR reality
+
+Handwritten Hindi recognition is difficult and may require a specialized model or service.
+
+Do not assume Tesseract can accurately recognize all handwritten Hindi entries.
+
+Benchmark available recognition engines using real samples before choosing the final implementation. Check licensing, offline availability, dependency size, and privacy.
+
+Cloud OCR must be optional and must never silently upload confidential business documents.
+
+If handwriting recognition is unreliable, implement a useful manual transcription and verification interface.
+
+Do not invent OCR confidence scores. Show them only when supported by the recognition engine.
+
+## Verification interface
+
+Display:
+
+- Original sheet preview.
+- Zoom and pan.
+- Extracted table.
+- Editable customer/date/quantity cells.
+- Confidence indicators where available.
+- Possible customer matches.
+- Uncertain values.
+- Missing entries.
+- Batch totals.
+- Validation warnings.
+- Save Draft.
+- Verify.
+- Approve.
+- Reject.
+
+Approval must be idempotent: reopening or reprocessing a previously approved batch must not duplicate deliveries.
+
+## Notation dictionary
+
+Create configurable rules for handwriting conventions, such as `1`, `2`, `2+1`, `X`, `/`, and quotation-like marks.
+
+These examples must not be assumed to have a particular meaning until confirmed.
+
+Support different rules by driver, register template, or period if necessary.
+
+Keep rule versions and preserve the original recognized values.
+
+---
+
+# 12. PERMANENT DOCUMENT ARCHIVE
+
+Build a searchable archive for original registers and related documents.
+
+Store:
+
+- Original filename.
+- Original bytes.
+- File hash.
+- Upload timestamp.
+- Import batch ID.
+- Page count.
+- Related customers.
+- Billing period.
+- OCR output.
+- Verification status.
+- Linked transactions.
+- Approval history.
+- Correction history.
+- Related invoice references.
+
+Allow searching by filename, date, customer, period, batch, transaction ID, and invoice number.
+
+Support preview, export, print, and reprocessing.
+
+Never replace the only copy of an original scan with an enhanced or cropped image.
+
+If a source file becomes missing or unreadable, show an explicit warning.
+
+---
+
+# 13. BILLING AND INVOICES
+
+Build a complete monthly billing engine.
+
+Support:
+
+- Monthly and custom billing periods.
+- Customer-specific rates.
+- Effective-dated rate changes.
+- Verified delivery records.
+- Billable quantities.
+- Authorized adjustments.
+- Opening balances.
+- Previous outstanding amounts.
+- Payment allocations.
+- Closing payable amount.
+- Draft, reviewed, finalized, printed, and exported states.
+
+Before generating bills, check for:
+
+- Missing source registers.
+- Unverified transactions.
+- Missing customer rates.
+- Potential duplicate entries.
+- Incorrect customer mappings.
+- Unresolved adjustments.
+- Transactions outside the billing period.
+
+## Billing policy
+
+Do not assume returned cans reduce water charges.
+
+Use a configurable billing policy. Physical container returns may affect the can ledger without changing water-sales charges.
+
+## Invoice snapshots
+
+A finalized invoice must preserve:
+
+- Customer details as billed.
+- Billing period.
+- Issue date.
+- Serial number.
+- Rate and quantity used.
+- Line items.
+- Discounts and adjustments.
+- Previous balance.
+- Payments considered.
+- Final amount.
+- Relevant business details.
+- Template/version information needed for reproducible reprints.
+
+Changing a customer's current address, rate, or name must not rewrite historical invoices.
+
+## Invoice serial numbers
+
+Support:
+
+- Manually entered starting number.
+- Automatic next-number suggestion.
+- Authorized manual override.
+- Configurable numbering series.
+- Duplicate-number prevention.
+- Historical serial-number preservation.
+- Reprint without creating a new invoice.
+
+Drafts must not consume permanent invoice numbers unless that policy is explicitly configured.
+
+## Issue dates
+
+Keep the following independent:
+
+- Issue date.
+- Billing-period start.
+- Billing-period end.
+- Payment due date.
+- Actual payment date.
+
+A saved issue date must not change when the application is reopened or the system date changes.
+
+A correction to a finalized invoice must be audited.
+
+## Bulk billing
+
+Allow all customers, selected customers, or filtered customer groups.
+
+Calculate draft bills, show the calculation breakdown, allow review, and finalize only approved invoices.
+
+An invalid customer must not silently receive an incorrect invoice. Other valid customers should be processed when the batch workflow permits this safely.
+
+---
+
+# 14. PHYSICAL BILL PRINTING — 145 × 260 MM
+
+The existing physical bill stationery measures:
+
+**145 mm wide × 260 mm high.**
+
+Implement two output modes:
+
+1. Print variable details onto existing preprinted stationery.
+2. Generate a complete bill as a PDF.
+
+Support:
+
+- Exact custom paper size.
+- Portrait orientation.
+- Printer selection.
+- Horizontal and vertical offsets.
+- Margins.
+- Scaling.
+- Font size.
+- Column alignment.
+- Print preview.
+- Calibration/test page.
+- Repeated printing.
+- Historical reprints.
+
+The bill should support:
+
+- Business name and contact details.
+- Logo.
+- Customer name and address.
+- Phone number.
+- Invoice serial number.
+- Issue date.
+- Billing period.
+- Delivery particulars.
+- Dates.
+- Cans/jars.
+- Rates.
+- Amounts.
+- Total.
+- Advance/payment information.
+- Balance payable.
+- Bank/UPI details.
+- Payment instructions.
+- Signature area.
+
+Keep the invoice template separate from billing calculations.
+
+Implement a template editor where practical, allowing authorized users to adjust positions, fonts, labels, and columns.
+
+Reprinting an invoice must not generate a new invoice or recalculate historical amounts using current rates.
+
+Test with a real supported printer if hardware access is available. Otherwise, verify PDF dimensions and print-layout calculations and clearly state that physical printer calibration remains unverified.
+
+---
+
+# 15. PAYMENTS AND RECEIPTS
+
+Implement payment recording for:
+
+- Cash.
+- UPI.
+- Bank transfer.
+- Other configurable methods.
+
+Store:
+
+- Payment ID.
+- Customer.
+- Date.
+- Amount.
+- Payment method.
+- Transaction reference.
+- Collector/driver.
+- Receipt number.
+- Notes.
+- Allocated invoices.
+- Supporting attachment if available.
+
+Support:
+
+- Full payment.
+- Partial payment.
+- Multiple-invoice allocation.
+- Unallocated payment.
+- Customer advance.
+- Receipt generation.
+- Payment history.
+- Outstanding balances.
+- Payment reversals and adjustments.
+
+Prevent the same payment from being counted twice.
+
+A generated UPI QR code or payment reminder is not proof that payment occurred.
+
+Do not automatically mark an invoice as paid merely because a reminder was sent or a QR code was generated.
+
+---
+
+# 16. INVENTORY AND WATER-CAN MANAGEMENT
+
+Track reusable cans across:
+
+- Plant.
+- Storage.
+- Vehicles.
+- Drivers.
+- Customers.
+- Damaged stock.
+- Repair locations.
+- Other configured locations.
+
+Record:
+
+- Loading.
+- Unloading.
+- Delivery.
+- Return.
+- Transfer.
+- Loss.
+- Damage.
+- Recovery.
+- Stock adjustment.
+
+Each movement must include quantity, date, source, destination, responsible person, and related transaction.
+
+Support stock reconciliation and physical counts.
+
+Warn about unexplained differences.
+
+Prevent negative inventory where configured, while allowing authorized, documented corrections.
+
+Keep refundable can deposits separate from sales revenue.
+
+---
+
+# 17. DRIVERS AND ROUTES
+
+Implement:
+
+- Driver profiles.
+- Route management.
+- Customer-to-route assignments.
+- Driver-wise customer lists.
+- Daily delivery summaries.
+- Driver-wise collection records.
+- Can loading and return records.
+- Missing-register alerts.
+- Route reconciliation.
+- Correction history.
+
+A future mobile application is optional. Do not make it a dependency for the first working desktop ERP.
+
+---
+
+# 18. EXCEL CENTER
+
+Build a professional Excel Center with four main sections:
+
+1. Customer Export.
+2. Customer Import.
+3. Delivery Export.
+4. Delivery Import.
+
+## Export filters
+
+Support:
+
+- Date ranges.
+- Customer selection.
+- Multiple customers.
+- All customers.
+- Route.
+- Driver.
+- Billing period.
+- Entry source.
+- Verification status.
+- Invoiced/uninvoiced.
+- Customer status.
+- Outstanding balance.
+- Transaction ID.
+
+## Export formats
+
+- XLSX.
+- CSV.
+- PDF reports where useful.
+
+Use stable IDs, explicit date formats, numeric columns, meaningful sheet names, and clear column headers.
+
+## Import modes
+
+Implement all of these:
+
+**Ignore Existing:** Insert new records and leave matched records unchanged.
+
+**Update Existing:** Update permitted fields on matched records and insert new records.
+
+**Selective Update:** Let the operator choose which records and fields may change.
+
+**Insert Missing Only:** Add records not already present.
+
+**Dry Run:** Validate and preview changes without writing to the database.
+
+## Import wizard
+
+1. Select workbook.
+2. Select worksheet.
+3. Map columns.
+4. Validate data.
+5. Match existing records.
+6. Resolve duplicates.
+7. Choose import mode.
+8. Preview all proposed changes.
+9. Confirm.
+10. Commit safely.
+11. Display a detailed report.
+
+## Import report
+
+Show:
+
+- Rows read.
+- New records.
+- Existing records ignored.
+- Records updated.
+- Invalid rows.
+- Duplicate candidates.
+- Conflicts.
+- Skipped records.
+- Errors.
+- Batch ID.
+
+Offer an exportable error report.
+
+No silent overwrites.
+
+No automatic deletion of records missing from an imported workbook.
+
+No uncertain customer merges.
+
+No uncontrolled modification of finalized invoices.
+
+Reimporting the same file must not duplicate existing transactions.
+
+Use transactional processing and explicit rollback behaviour. If partial acceptance is supported, it must be a deliberate operator choice.
+
+---
+
+# 19. EXPENSES, REPORTS, AND ANALYTICS
+
+Build expense tracking for:
+
+- Fuel.
+- Salaries.
+- Rent.
+- Electricity.
+- Water procurement.
+- Vehicle maintenance.
+- Can purchases.
+- Repairs.
+- Other operating expenses.
+
+Each expense should have a date, category, amount, payment method, reference, notes, optional attachment, and audit history.
+
+Implement reports for:
+
+- Daily deliveries.
+- Monthly delivery volumes.
+- Customer-wise consumption.
+- Sales invoiced.
+- Money collected.
+- Outstanding receivables.
+- Overdue accounts.
+- Payment-method summaries.
+- Expenses by category.
+- Inventory movement.
+- Stock discrepancies.
+- Driver performance.
+- Route reconciliation.
+- OCR errors.
+- Unverified records.
+- Corrected transactions.
+- Invoice status.
+- Printing history.
+- Estimated profit and loss when cost data is complete.
+
+Every report must distinguish invoiced sales, collected money, outstanding receivables, inventory movements, and estimated profit.
+
+Use real database queries, not fabricated chart values.
+
+---
+
+# 20. SETTINGS AND CONFIGURATION
+
+Implement a proper settings area.
+
+## Business configuration
+
+- Business name.
+- Address.
+- Contact information.
+- Logo path.
+- Bank information.
+- UPI ID.
+- Payment instructions.
+- Invoice footer.
+- Date format.
+- Language.
+- Currency.
+- Financial year.
+- Data directory.
+
+## Billing configuration
+
+- Default rates.
+- Customer-specific rates.
+- Effective dates.
+- Billing-period rules.
+- Quantity policy.
+- Returned-can treatment.
+- Deposits.
+- Discounts.
+- Rounding.
+- Payment terms.
+- Invoice numbering.
+- Opening balances.
+
+## OCR configuration
+
+- Recognition engine.
+- Register templates.
+- Symbol rules.
+- Customer matching thresholds.
+- Verification thresholds.
+- Approval requirements.
+
+Settings changes must not silently alter finalized invoices or historical transactions.
+
+Validate configuration before saving.
+
+---
+
+# 21. BACKUP, RESTORE, AND RECOVERY
+
+Implement a complete backup and restoration system.
+
+Required capabilities:
+
+- Manual backup.
+- Automatic scheduled backup where supported.
+- Backup before major imports.
+- Backup before schema migration.
+- Database and associated documents backed up together.
+- Backup manifest.
+- Integrity verification.
+- Backup history.
+- Configurable retention.
+- Restore preview.
+- Restore confirmation.
+- Recovery from interrupted imports.
+- Optional backup to another drive.
+
+Never automatically delete the only known-good backup.
+
+Use SQLite's backup API or another safe method to create a consistent backup while the application is running.
+
+Include original scans, invoice snapshots, required attachments, settings, and any related metadata in the appropriate backup policy.
+
+## Restore safety
+
+Before restoring:
+
+1. Validate the selected backup.
+2. Verify its contents and manifest.
+3. Create a backup of the current state where possible.
+4. Show the target directory and affected data.
+5. Require confirmation for destructive replacement.
+6. Restore into a controlled location.
+7. Run integrity checks.
+8. Verify associated documents.
+9. Report the actual outcome.
+
+Do not report a successful restore if the database or required files are missing or invalid.
+
+---
+
+# 22. SECURITY, PERMISSIONS, AND AUDIT
+
+Design the data model to support:
+
+- Owner/Administrator.
+- Billing operator.
+- Accountant.
+- Data-entry operator.
+- Driver.
+
+For a single-user first release, keep setup simple, but do not scatter permission checks throughout unrelated UI code.
+
+Protect sensitive operations such as:
+
+- Changing rates.
+- Editing finalized transactions.
+- Issuing invoices.
+- Reversing payments.
+- Adjusting stock.
+- Importing large datasets.
+- Restoring backups.
+- Changing user permissions.
+
+Use secure password storage if authentication is implemented.
+
+Never store plaintext passwords.
+
+Use parameterized SQL queries.
+
+Validate all imported values.
+
+Protect against accidental execution of formulas in exported CSV/XLSX content where appropriate.
+
+Do not expose business information through unnecessary network services.
+
+Core functionality must work offline.
+
+---
+
+# 23. NOTIFICATIONS AND TASKS
+
+Create an internal notification center for:
+
+- Registers awaiting verification.
+- Missing delivery records.
+- Customers without rates.
+- Draft invoices awaiting review.
+- Bills awaiting printing.
+- Overdue balances.
+- Unallocated payments.
+- Stock discrepancies.
+- Missing documents.
+- Failed backups.
+- Low storage space.
+- Duplicate imports.
+- Invoice corrections.
+- Data-integrity warnings.
+
+Notifications should link to the corresponding screen and record.
+
+Avoid repetitive notifications that do not require action.
+
+---
+
+# 24. INITIAL SETUP AND DATA MIGRATION
+
+On first launch, provide a guided setup wizard.
+
+Steps:
+
+1. Business information.
+2. Data directory.
+3. Logo and branding verification.
+4. Printer setup.
+5. Customer import.
+6. Opening financial balances.
+7. Opening can balances.
+8. Rate configuration.
+9. Invoice numbering.
+10. Backup configuration.
+11. Optional sample register processing.
+12. Final configuration review.
+
+Allow optional steps to be completed later.
+
+Never silently replace an existing database during startup or an upgrade.
+
+For migrations:
+
+- Detect the existing database.
+- Identify its schema version.
+- Create a verified backup.
+- Apply migrations safely.
+- Validate migrated data.
+- Preserve all historical records.
+- Provide a recovery path if migration fails.
+
+---
+
+# 25. FAILURE HANDLING
+
+Explicitly handle at least these scenarios:
+
+- Duplicate register upload.
+- Duplicate Excel import.
+- Multiple legitimate deliveries on one date.
+- Incorrect OCR quantity.
+- Incorrect customer match.
+- Incorrect entry after invoicing.
+- Mid-month rate change.
+- Duplicate invoice number.
+- Payment allocated twice.
+- Application closes during import.
+- Disk becomes full.
+- Data directory becomes unavailable.
+- Printer rejects the paper size.
+- Backup is incomplete.
+- Customer is archived.
+- Historical bill is reprinted.
+- Excel contains invalid rows.
+- OCR engine is unavailable.
+- Computer date changes.
+- Power failure during a write.
+- Application upgrade fails.
+- Missing logo or font.
+- Database is locked or corrupt.
+- Required source document is missing.
+
+The application must show actionable errors and preserve data wherever possible.
+
+Do not catch all exceptions and silently continue.
+
+Log useful diagnostic information without logging passwords or unnecessary sensitive data.
+
+---
+
+# 26. TESTING STRATEGY
+
+Testing is mandatory.
+
+Do not treat successful compilation as proof that the application works.
+
+## A. Unit tests
+
+Test:
+
+- Monetary calculations.
+- Quantity calculations.
+- Can balances.
+- Financial balances.
+- Effective-dated rates.
+- Invoice totals.
+- Payment allocations.
+- Refunds and deposits.
+- Invoice number generation.
+- Duplicate detection.
+- Import matching.
+- Data validation.
+- Audit events.
+- Backup manifest validation.
+
+## B. Database tests
+
+Test:
+
+- Create/read/update operations.
+- Foreign-key constraints.
+- Duplicate identifiers.
+- Transaction rollback.
+- Interrupted batch writes.
+- Schema migration.
+- Reopening the database.
+- Referential integrity.
+- Historical invoice preservation.
+
+## C. Integration tests
+
+Test complete workflows:
+
+1. Create customer.
+2. Add delivery.
+3. Verify ledger balance.
+4. Generate draft bill.
+5. Finalize invoice.
+6. Record payment.
+7. Verify outstanding balance.
+8. Export records.
+9. Back up database and documents.
+10. Restore to a separate test directory.
+11. Reopen and verify all records.
+
+Also test:
+
+- OCR draft and approval.
+- Excel dry run.
+- Selective import.
+- Repeated import.
+- Historical reprint.
+- Customer archival.
+- Invoice correction.
+- Inventory reconciliation.
+
+## D. GUI tests
+
+Verify:
+
+- Every navigation item opens the correct screen.
+- Forms validate required inputs.
+- Buttons perform real actions.
+- Tables display actual records.
+- Search and filters work.
+- Errors are visible.
+- Long-running tasks do not freeze the interface.
+- The application can reopen saved records.
+- Unsaved changes are handled safely.
+
+## E. End-to-end acceptance tests
+
+Use controlled synthetic test data in a separate test database.
+
+Test the following:
+
+- Import customers and verify their IDs.
+- Add and correct a delivery.
+- Upload the same scan twice.
+- Import the same workbook twice.
+- Compare monthly billing with an independent calculation.
+- Change a rate and verify old invoices remain unchanged.
+- Record partial and full payments.
+- Verify can balances independently.
+- Generate a 145 × 260 mm PDF.
+- Reprint a historical invoice.
+- Restore a backup into a separate directory.
+- Verify persistence after application restart.
+- Verify core functions without internet access.
+
+Never run destructive test cases against the only copy of the production database.
+
+## Test discipline
+
+For every defect:
+
+1. Record the failing test or reproducible behaviour.
+2. Fix the root cause.
+3. Run the relevant test.
+4. Run related regression tests.
+5. Continue.
+
+Do not remove a failing test merely to make the test suite pass.
+
+---
+
+# 27. WINDOWS BUILD AND DELIVERY
+
+The goal is a usable Windows desktop application, not merely a Python source repository.
+
+Prepare:
+
+- A runnable development version.
+- A reproducible build process.
+- A Windows executable when packaging is possible.
+- Required resource files.
+- Dependency manifest.
+- Installation or portable-run instructions.
+- README.
+- Changelog.
+- Backup and restore guide.
+- User guide.
+- Troubleshooting guide.
+
+Prefer a portable distribution when it makes sense for the business, while keeping the data directory writable and configurable.
+
+The packaged application must locate the logo and required resources reliably.
+
+## Build verification
+
+Where supported by the environment:
+
+1. Build the application.
+2. Launch the built executable.
+3. Verify startup.
+4. Verify logo loading.
+5. Open major modules.
+6. Create and save a test customer.
+7. Close and reopen the app.
+8. Verify the saved customer persists.
+9. Test a representative invoice workflow.
+10. Check logs for startup errors.
+11. Verify that packaged resources are available.
+
+If the development environment is not Windows, do not claim that a Windows executable was runtime-tested when it was not. Use the available checks, produce the appropriate build configuration, and identify what requires Windows verification.
+
+Do not place a fake executable in the delivery folder.
+
+---
+
+# 28. DEVELOPMENT PHASES
+
+Work in phases, but do not treat a phase description as completion.
+
+## Phase 1 — Foundation
+
+- Inspect the project.
+- Establish architecture.
+- Build branding and main window.
+- Create database schema and migrations.
+- Implement persistent storage.
+- Implement customer management.
+- Implement daily entries.
+- Implement both ledgers.
+- Implement basic backup.
+
+## Phase 2 — Register digitization
+
+- Document archive.
+- OCR pipeline.
+- Verification UI.
+- Notation dictionary.
+- Batch import.
+- Duplicate prevention.
+- Approval and correction history.
+
+## Phase 3 — Billing and Excel
+
+- Billing engine.
+- Invoice snapshots.
+- Invoice numbering.
+- Custom issue dates.
+- PDF generation.
+- 145 × 260 mm layout.
+- Print preview.
+- Excel import/export wizard.
+
+## Phase 4 — Financial and operational modules
+
+- Payments.
+- Receipts.
+- Inventory.
+- Drivers.
+- Routes.
+- Expenses.
+- Reports.
+- Notifications.
+
+## Phase 5 — Production hardening
+
+- Permissions.
+- Audit review.
+- Recovery.
+- Backup restoration.
+- Error handling.
+- UI testing.
+- Integration testing.
+- Packaging.
+- Documentation.
+- Final acceptance testing.
+
+You may adjust the sequence to resolve dependencies, but maintain a single integrated application.
+
+---
+
+# 29. FEATURE COMPLETION TRACKER
+
+Maintain a persistent development checklist in the project, for example:
+
+`D:\projects\Rai Chilled Water\DEVELOPMENT_STATUS.md`
+
+For every feature, record:
+
+- Feature name.
+- Implementation status.
+- Relevant files.
+- Tests written.
+- Tests executed.
+- Test result.
+- Known limitations.
+- Next action.
+
+Use explicit statuses:
+
+- NOT STARTED
+- IN PROGRESS
+- IMPLEMENTED
+- TESTED
+- VERIFIED
+- BLOCKED
+
+Do not mark a feature VERIFIED merely because the code exists.
+
+Update the checklist after meaningful milestones.
+
+Also maintain:
+
+- `README.md`
+- `CHANGELOG.md`
+- `TEST_REPORT.md`
+- `KNOWN_LIMITATIONS.md`
+
+These files must reflect the actual state of the project, not an idealized future state.
+
+---
+
+# 30. DEFINITION OF DONE
+
+The application is complete only when the mandatory workflows are implemented and verified.
+
+## Core application
+
+- [ ] Application starts.
+- [ ] Correct branding and logo are displayed.
+- [ ] Main navigation works.
+- [ ] Customer records persist.
+- [ ] Daily entries persist.
+- [ ] Both ledgers calculate correctly.
+- [ ] Search and filters work.
+- [ ] Corrections are auditable.
+
+## Register processing
+
+- [ ] Original scans are archived.
+- [ ] OCR processing can run where the selected engine is available.
+- [ ] Verification and manual correction work.
+- [ ] Approval creates transactions once.
+- [ ] Duplicate batches are detected.
+- [ ] Source-to-transaction relationships persist.
+
+## Billing
+
+- [ ] Draft bills calculate correctly.
+- [ ] Rates and effective dates work.
+- [ ] Serial numbers are controlled.
+- [ ] Issue dates remain fixed.
+- [ ] Finalized invoices preserve historical values.
+- [ ] Payment status works.
+- [ ] Historical reprints do not recalculate old invoices.
+- [ ] 145 × 260 mm PDF generation is verified.
+
+## Excel
+
+- [ ] Customer import/export works.
+- [ ] Delivery import/export works.
+- [ ] Dry run works.
+- [ ] Ignore-existing mode works.
+- [ ] Update-existing mode works.
+- [ ] Selective-update mode works.
+- [ ] Insert-missing mode works.
+- [ ] Duplicate imports are handled safely.
+- [ ] Errors are reported by row.
+
+## Financial and inventory functions
+
+- [ ] Payments and allocations work.
+- [ ] Receipts work.
+- [ ] Outstanding balances are correct.
+- [ ] Can movements are tracked.
+- [ ] Stock reconciliation works.
+- [ ] Expenses and reports use real records.
+
+## Reliability
+
+- [ ] Data persists after restart.
+- [ ] Backup works.
+- [ ] Restore is tested separately.
+- [ ] Interrupted operations roll back safely.
+- [ ] Missing storage is reported.
+- [ ] No critical operation reports false success.
+- [ ] Automated tests pass.
+- [ ] Known limitations are documented.
+
+## Delivery
+
+- [ ] Build process is reproducible.
+- [ ] Executable is produced where supported.
+- [ ] Packaged resources work.
+- [ ] Documentation is complete.
+- [ ] Final test report exists.
+
+A feature that is unavailable because of an external dependency must be marked BLOCKED or PARTIALLY IMPLEMENTED with an explicit explanation, not falsely marked complete.
+
+---
+
+# 31. OPERATING INSTRUCTIONS FOR THE AI CODING AGENT
+
+You must work directly with the tools available in your environment.
+
+If you have terminal, filesystem, or code-execution tools:
+
+- Inspect files.
+- Create and edit files.
+- Run the application.
+- Run tests.
+- Inspect stack traces.
+- Install compatible dependencies when permitted.
+- Build the executable.
+- Verify the resulting artifacts.
+
+If you have GUI/computer-use capabilities, use them to inspect and test the actual desktop application where practical.
+
+Do not pretend to have accessed a local drive or executed a command when you have not.
+
+If a tool cannot access the Windows path, determine whether the project is mounted elsewhere or whether the current environment is remote. Use the available file access mechanism and explain any unavoidable boundary.
+
+Do not stop to ask me routine questions about coding decisions. Make sensible, reversible engineering decisions and document them.
+
+For genuine business-rule ambiguity, use a configurable rule with a safe default and clearly mark it for owner confirmation. Never silently invent a financial rule and apply it to finalized bills.
+
+Prefer the smallest working implementation that is reliable, but do not omit mandatory modules merely to finish faster.
+
+After completing one module, integrate and test it before moving on.
+
+Do not let unfinished optional extensions prevent completion of the core desktop application.
+
+---
+
+# 32. FIRST ACTION — BEGIN IMPLEMENTATION NOW
+
+Start immediately.
+
+Your first response must not be another long plan.
+
+Perform the following actions in order:
+
+1. Inspect `D:\projects\Rai Chilled Water\` and its existing files.
+2. Verify the logo at `D:\projects\Rai Chilled Water\RAI_Chilled_Water.png`.
+3. Inspect any existing implementation and preserve important data.
+4. Establish the development environment and architecture.
+5. Create or update the persistent development checklist.
+6. Identify the most important missing components.
+7. Implement the foundation.
+8. Run the application.
+9. Test the foundation.
+10. Continue implementing the remaining required modules.
+
+If you have to choose between spending another hour discussing a plan and implementing a testable feature, implement the feature.
+
+If you have to choose between adding a decorative dashboard animation and fixing an incorrect financial calculation, fix the financial calculation.
+
+If you have to choose between claiming completion and honestly reporting an unresolved issue, report the truth and continue fixing it.
+
+**Your assignment is to deliver Rai Chilled Water as a real, integrated, reliable Windows desktop business application—not merely as code that looks complete. Begin inspecting the project and executing the work now.**
